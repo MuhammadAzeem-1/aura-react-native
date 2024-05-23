@@ -4,11 +4,8 @@ import {  SafeAreaView} from 'react-native-safe-area-context'
 import { images } from "../../constants"
 import { CustomButton, FormFeild } from '../../components' 
 import { Link, router } from 'expo-router'
-import { getCurrentUser, signIn } from '../../lib/appwrite'
-import { useGlobalContext } from '../../context/GlobalProvider'
 
 const SignIn = () => {
-  const { setUser, setIsLogged } = useGlobalContext()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [form, setForm] = useState({
     email: "",
@@ -16,31 +13,8 @@ const SignIn = () => {
   })
  
   const submit = async () => {
-    if (!form.email || !form.password) {
-      Alert.alert("Error", "Please fill in all fields");
-    }
-
-    setIsSubmitting(true)
-    try {
-      await signIn(form.email, form.password);
-      const result = await getCurrentUser();
-
-      setUser(result)
-      setIsLogged(true)
-      
-      Alert.alert("Success", "User Signed in SuccessFully")
-    
-      // ---------
-
-      router.replace("/home")
-    } catch (error) {
-
-      Alert.alert("Error", error.message);
-
-    } finally {
-      
-      setIsSubmitting(false);
-    }
+  
+      router.replace("/photos")
   };
    
   return (
@@ -50,11 +24,14 @@ const SignIn = () => {
             className="w-full flex justify-center h-full px-4 my-6" 
             style={{ minHeight: Dimensions.get("window").height - 100 }}
           > 
+          <View className="flex justify-center items-center">
             <Image 
               source={images.logo} 
               resizeMode="contain" 
-              className="w-[115px] h-[34px]"
+              className="w-[150px] h-[54px]"
             />
+          </View>
+            
 
             <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
               Log in to Aora

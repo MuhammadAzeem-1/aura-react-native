@@ -3,14 +3,11 @@ import {
   FlatList,
   Image,
   ImageBackground,
-  StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { ResizeMode, Video } from "expo-av";
-import { icons } from "../constants";
+
 
 const zoomIn = {
   0: {
@@ -31,7 +28,7 @@ const zoomOut = {
 };
 
 const TrendingItem = ({ activeItem, item }) => {
-  const [play, setPlay] = useState(false);
+  const [isMemories, setIsMemories] = useState(false);
 
   return (
     <Animatable.View
@@ -39,31 +36,14 @@ const TrendingItem = ({ activeItem, item }) => {
       animation={activeItem === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
-      {play ? (
-        <Video
-          source={{ uri: item.video }}
-          className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
-        />
+      {isMemories ? (
+        <Text>Create Your memories</Text>
       ) : (
         <TouchableOpacity>
           <ImageBackground
-            source={{ uri: item.thumbnail }}
-            className="w-52 h-72 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
+            source={{ uri: item.image }}
+            className="w-52 h-60 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
             resizeMode="cover"
-          />
-
-          <Image
-            source={icons.play}
-            className="w-12 h-12 absolute"
-            resizeMode="contain"
           />
         </TouchableOpacity>
       )}
@@ -71,8 +51,8 @@ const TrendingItem = ({ activeItem, item }) => {
   );
 };
 
-const Trending = ({ posts }) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+const Trending = ({ data }) => {
+  const [activeItem, setActiveItem] = useState(data[0]);
 
   const viewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
@@ -83,8 +63,8 @@ const Trending = ({ posts }) => {
   return (
     <FlatList
       horizontal
-      data={posts}
-      keyExtractor={(item) => item.$id}
+      data={data}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TrendingItem activeItem={activeItem} item={item} />
       )}

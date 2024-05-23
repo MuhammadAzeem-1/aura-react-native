@@ -1,16 +1,19 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, TouchableOpacity , ScrollView, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Link, Redirect, router } from "expo-router";
+import {  router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { images } from "../constants";
 import CustomButton from "../components/CustomButton";
- import {useGlobalContext} from "../context/GlobalProvider"
+
+const projectId = 'e513dba993263d9dd590cdb6aeb4584f'
+
 
 export default function App() {
-  const {isLoading , isLogged} = useGlobalContext() 
+  // if (!isLoading && isLogged) return <Redirect href="/home" />;
 
-  if(!isLoading && isLogged) return <Redirect href="/home"/>
+  const handlePressButton = () =>{
+
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -18,21 +21,21 @@ export default function App() {
         <View className="w-full flex justify-center items-center h-full px-4">
           <Image
             source={images.logo}
-            className="w-[130px] h-[84px]"
+            className="w-[200px] h-[100px]"
             resizeMode="contain"
           />
 
           <Image
             source={images.cards}
-            className="max-w-[380px] w-full h-[298px]"
+            className="max-w-[350px] w-full h-[248px]"
             resizeMode="contain"
           />
 
           <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
+            <Text className="text-2xl text-white font-bold text-center">
               Discover Endless {"\n"}
               Possibilities with{" "}
-              <Text className="text-secondary-200">Aora</Text>
+              <Text className="text-secondary-200">PixelChain</Text>
             </Text>
 
             <Image
@@ -41,20 +44,28 @@ export default function App() {
               resizeMode="contain"
             />
           </View>
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
-          </Text>
 
           <CustomButton
-              title="Continue with email"
-              handlePress={() => router.push("/sign-in")}
-              containerStyles="w-full mt-7"
-            />
+            title="Continue with email"
+            handlePress={() => router.push("/sign-in")}
+            containerStyles="w-full mt-7"
+          />
+
+          <TouchableOpacity
+            onPress={handlePressButton}
+            activeOpacity={0.7}
+            className={`bg-violet-900	 rounded-xl min-h-[62px] flex flex-row justify-center items-center w-full mt-7`}
+          >
+            <Text
+              className={`text-white font-psemibold text-lg`}
+            >
+              Connect Wallet
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
 
-      <StatusBar backgroundColor="#161622" style="light"/>
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 }

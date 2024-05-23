@@ -12,7 +12,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
 import { CustomButton, FormFeild } from "../../components";
 import { Link, router } from "expo-router";
-import { createUser } from "../../lib/appwrite";
 
 const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,25 +22,7 @@ const SignUp = () => {
   });
 
   const submit = async () => {
-    if (!form.username || !form.email || !form.password) {
-      Alert.alert("Error", "Please fill in all fields");
-    }
-
-    setIsSubmitting(true)
-    try {
-      const result = await createUser(form.email, form.password, form.username);
-
-      // ---------
-
-      router.replace("/home")
-    } catch (error) {
-
-      Alert.alert("Error", error.message);
-
-    } finally {
-
-      setIsSubmitting(false);
-    }
+      router.replace("/photos")
   };
 
   return (
@@ -51,11 +32,14 @@ const SignUp = () => {
           className="w-full flex justify-center h-full px-4 my-6"
           style={{ minHeight: Dimensions.get("window").height - 100 }}
         >
-          <Image
+          <View className="flex justify-center items-center">
+            <Image
             source={images.logo}
             resizeMode="contain"
-            className="w-[115px] h-[34px]"
+            className="w-[150px] h-[54px]"
           />
+          </View>
+          
 
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
             Signup to Aora

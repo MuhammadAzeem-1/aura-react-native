@@ -11,6 +11,16 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import library from "../assets/icons/library.png";
+import xbutton from "../assets/icons/x-button.png";
+import copy from "../assets/icons/copy.png";
+import cloud from "../assets/icons/cloud.png";
+import star from "../assets/icons/star.png";
+import album from "../assets/icons/album.png";
+
+
+
+
 
 export default {
   play,
@@ -26,4 +36,10 @@ export default {
   logout,
   eyeHide,
   eye,
+  library,
+  xbutton,
+  copy,
+  cloud,
+  star,
+  album
 };
